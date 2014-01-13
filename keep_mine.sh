@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# http://stackoverflow.com/questions/928646/how-do-i-tell-git-to-always-select-my-local-version-for-conflicted-merges-on-a-s
 # this script is for managing git local branch commits
 # merge driver which keeps the current branch version
 
@@ -16,7 +17,6 @@
 	
 	#dont_merge.txt merge=keep_mine
 
-echo "HELLO WORLD" > $HOME/Desktop/test.txt
+echo "Keep mine merge" >> $HOME/Desktop/test.txt
 
 exit 0
-
