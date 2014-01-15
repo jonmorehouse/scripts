@@ -27,7 +27,8 @@ then
 				echo "Include not found for: $file" 
 			fi
 		else
-			export $line
+			# export the variable accordingly!
+			eval "export $line"
 		fi
 	done
 fi
