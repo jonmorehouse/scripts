@@ -7,9 +7,7 @@
 # This script is called at startup by a launch agent - symlinks/startup.plist
 echo "TEST" >> $HOME/Desktop/startup
 
-# now kill dock elements and clean dock
-#$HOME/dotfiles/scripts/dock.scpt
-
+# clear the screen from before
 clear
 
 # now lets start up various tmux sessions
