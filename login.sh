@@ -8,7 +8,9 @@
 echo "TEST" >> $HOME/Desktop/startup
 
 # now kill dock elements and clean dock
-$HOME/dotfiles/scripts/dock.scpt
+#$HOME/dotfiles/scripts/dock.scpt
+
+clear
 
 # now lets start up various tmux sessions
 mux start personal
