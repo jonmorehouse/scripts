@@ -38,6 +38,12 @@ Login / Startup
 * applescript doesn't work well with launchagent - I recommend saving any applescripts as applications and manually adding them under preferences->user login items
 * login.sh is a script that does all the grunt work for setting up your machine. Be sure to symlink a plist file to ~/Library/LaunchAgents so that this is setup properly 
 
+Compile Applescript to application:
+```
+osacompile -o ~/Desktop/dock-login.app dock.scpt
+```
+
+Example Plist File:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
