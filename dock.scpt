@@ -7,8 +7,6 @@ set dock_elements to {"Trash", "Finder"}
 tell application "Dock"
 	
 	activate
-	delay 10
-
 end tell
 
 tell application "System Events"
