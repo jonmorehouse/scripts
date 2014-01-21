@@ -4,6 +4,17 @@ Scripts
 * scripts to be included in local path
 * general scripts for utilities around machine and automation of tasks 
 
+Brew Backup
+-----------
+
+* backup your brew installation in one command
+
+```
+  brew_backup.sh > ~/Dotfiles/Brewfile
+  
+  cd ~/Dotfiles && brew bundle
+```
+
 Load Exports Script
 -------------------
 
