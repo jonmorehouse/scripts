@@ -12,6 +12,7 @@ $HOME/dotfiles/scripts/dock.scpt
 if [ ! `tmux list-session` ] 
 then
 	
+	rvm use system
 	mux personal
 
 fi
