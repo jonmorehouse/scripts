@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+class DirectoryContents
+
+  def initialize(path)
+    @path = path
+  end
+
+  def print
+
+    hash, files = file_hash
+    puts "Total Files: #{files}"
+    puts "#{(0..18).map{"-"}.join}"
+    
+    hash.each do |extension, quantity|
+      printf "%-8s %s\n", "#{extension}:", quantity 
+    end
+  end
+
+  private 
+  def files
+
+    pattern = File.join @path, "**/*"
+    dot_pattern = File.join @path, "**/.*"
+    return Dir[pattern] + Dir[dot_pattern]
+  end
+
+  def file_hash
+
+    hash = {}
+    quantity = 0
+    files.each do |file|
+    
+      quantity += 1
+      extension = File.extname(file)
+      if extension == nil or extension == ""
+        extension = "none"
+      else
+        extension.sub! ".", ""
+      end
+
+      # update hash
+      if hash.has_key?(extension)
+        hash[extension] += 1
+      else
+        hash[extension] = 1
+      end
+    end
+
+    return hash, quantity
+  end
+end
+
+# create directory contents object
+if ARGV.length > 0
+  directory = DirectoryContents.new(ARGV[0])
+else
+  directory = DirectoryContents.new(Dir.pwd)
+end
+
+# now print out the directory
+directory.print
