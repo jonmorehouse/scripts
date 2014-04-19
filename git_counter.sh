@@ -7,8 +7,9 @@ origin=$(git config --get remote.origin.url)
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 # now 
-filename=$HOME/.commits/$(date | awk '{ print $1" "$2" "$3 }')
-message="$origin \@ $branch \@ $(date)"
+file=$(date | awk '{ print tolower($1)"-"tolower($2)"-"$3 }')
+file_paths=$HOME/.commits/$file
+message="$origin @ $branch @ $(date)"
 
 echo $origin
 echo $filename
