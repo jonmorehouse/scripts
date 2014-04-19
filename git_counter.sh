@@ -9,11 +9,8 @@ branch=$(git rev-parse --abbrev-ref HEAD)
 # now 
 file=$(date | awk '{ print tolower($1)"-"tolower($2)"-"$3 }')
 file_paths=$HOME/.commits/$file
-message="$origin @ $branch @ $(date)"
+message="$origin#$branch $(date)"
 
-echo $origin
-echo $filename
-echo $branch
 echo $message
 
 
