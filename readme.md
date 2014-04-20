@@ -1,8 +1,16 @@
 Scripts
-=====================
+=======
 
-* scripts to be included in local path
-* general scripts for utilities around machine and automation of tasks 
+A collection of scripts I've built to solve daily problems. 
+
+Installation
+------------
+
+```
+git clone https://github.com/jonmorehouse/scripts ~/scripts
+export PATH:=~/scripts
+
+```
 
 Brew Backup
 -----------
@@ -15,7 +23,12 @@ Brew Backup
   cd ~/Dotfiles && brew bundle
 ```
 
-Load Exports Script
+Brew Backup
+-----------
+
+Backup your local brew installation. Creates a brewable file with all your formulae, taps and even config settings
+
+Load Env File
 -------------------
 
 Sample Exports File
@@ -33,13 +46,13 @@ HOST=$(ec2-host)
 Load your exports file into the current shell:
 
 ```
-\. load_export_file $file
+\. load_env_file $file
 ```
 
-Create alias for load_export_file:
+Create alias for load_env_file:
 
 ```
-echo "alias load_export_file='\. load_export_file\'" >> .bashrc 
+echo "alias load_env_file='\. load_env_file\'" >> .bashrc 
 
 ```
 
@@ -70,13 +83,4 @@ Example Plist File:
 </dict>
 </plist>
 ```
-
-
-Installation
-------------
-
-* export PATH:=`pwd` 
-
-
-
 
