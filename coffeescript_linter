@@ -10,8 +10,7 @@ fi
 gsed -i "s/)->/) ->/g" $1
 gsed -i "s/)=>/) =>/g" $1
 
-# replace the newlines 
-perl -p -i -e 's/\) ->\n/\) ->/g' $1
-perl -p -i -e 's/\) =>\n/\) =>/g' $1
-
+# replace where any ->/=> is followed by an empty line
+perl -00 -p -i -e 's/\) ->(?=[^\n]*\n\n)$/\) ->\n/m' $1
+perl -00 -p -i -e 's/\) =>(?=[^\n]*\n\n)$/\) =>\n/m' $1
 
