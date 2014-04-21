@@ -1,0 +1,24 @@
+#!/bin/sh
+# reads a .gitmerge file and will reset all paths in that file to the pre-commit version
+# skipped file array for holding the paths of the files we are going to ignore!
+if [ -f .gitmerge ]
+then
+	skipped=`cat .gitmerge | grep -v \#`
+else
+	exit 0
+fi
+
+# determine the current git branch
+branch=`git symbolic-ref -q HEAD | awk '{ split($0, a, "/"); print a[3] }'`
+
+# loop through each of the skipped files and checkout the correct version
+for file in ${skipped[@]}
+do
+	git checkout origin/$branch -- $file
+done
+
+# now ammend the previous commit and make sure our changes are correct!
+git commit -a --amend --no-edit
+
+echo "Git post-merge removed files from merge as needed"
+
