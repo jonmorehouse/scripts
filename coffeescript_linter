@@ -11,5 +11,5 @@ gsed -i "s/)->/) ->/g" $1
 gsed -i "s/)=>/) =>/g" $1
 
 # remove empty lines beneath a function definition
-perl -i -pe 'm{\) ->\s*$}...!s/^\s*$//' $1
-perl -i -pe 'm{\) =>\s*$}...!s/^\s*$//' $1
+perl -i -pe 'm{\) ->\s*$}...!s/^\s*$//g' $1
+perl -i -pe 'm{\) =>\s*$}...!s/^\s*$//g' $1
