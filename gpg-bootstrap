@@ -1,0 +1,23 @@
+#!/usr/bin/env python 
+"""
+A safe secure way to unlock your ssh/gpg keys for gpg-agent
+Reads keys from env and asks you to enter passphrase, so you don't have to worry about leaving info on stdout
+"""
+import getpass
+import os
+
+for key in ["GPG_KEYGRIP", "SSH_KEYGRIP"]:
+    
+    kg = os.getenv(key)
+    if not kg:
+        print "Please set %s in env" % key
+        continue
+    
+    print "enter %s passphrase:" % key
+    pp = getpass.getpass()
+
+    # now unlock on gpg-agent
+    os.popen("gpg-preset-passphrase -c -P %s %s" % (pp, kg))
+
+
+
