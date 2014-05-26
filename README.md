@@ -1,86 +1,88 @@
-Scripts
-=======
+# Scripts
 
-A collection of scripts I've built to solve daily problems. 
+> A collection of scripts I've built to solve daily problems. 
 
-Installation
-------------
+### Usage
 
-```
-git clone https://github.com/jonmorehouse/scripts ~/scripts
-export PATH:=~/scripts
+~~~ sh
+$ git clone https://github.com/jonmorehouse/scripts ~/scripts
 
-```
+# add scripts to your path
+echo "export PATH=~/scripts:$PATH" >> ~/.bashrc
+~~~
 
 Brew Backup
 -----------
 
 * backup your brew installation in one command
 
-```
-  brew_backup.sh > ~/Dotfiles/Brewfile
+~~~ sh
+$ brew_backup.sh > ~/Dotfiles/Brewfile
   
-  cd ~/Dotfiles && brew bundle
-```
+$ cd ~/Dotfiles && brew bundle
+~~~
 
-Brew Backup
------------
+## Load Env File
 
-Backup your local brew installation. Creates a brewable file with all your formulae, taps and even config settings
+Automatically set environment variables
 
-Load Env File
--------------------
-
-Sample Exports File
-
-```
+~~~ sh
+# .env
 # include another exports file
 include .exports
 
 BASE_URL=localhost
 REDIS_PORT=6379
 HOST=$(ec2-host)
+~~~
 
-```
+load environment into current shell environment
+~~~ sh
+$ \. load_env_file some_env_file
+~~~
 
-Load your exports file into the current shell:
+## Login 
 
-```
-\. load_env_file $file
-```
+remove trash/finder icons at bootup
 
-Create alias for load_env_file:
 
-```
-echo "alias load_env_file='\. load_env_file\'" >> .bashrc 
+## gpg-bootstrap
 
-```
+set passphrases for an ssh/gpg key safely
 
-Login / Startup
----------------
+~~~ sh
+# set your gpg keyring in the environment
+$ GPG_KEYGRIP=$(gpg --fingerprint --fingerprint morehousej09@gmail.com | grep fingerprint | tail -1 | cut -d= -f2 | sed -e 's/ //g')
 
-* applescript doesn't work well with launchagent - I recommend saving any applescripts as applications and manually adding them under preferences->user login items
-* login.sh is a script that does all the grunt work for setting up your machine. Be sure to symlink a plist file to ~/Library/LaunchAgents so that this is setup properly 
-* still doesn't work nice - the dock is not loaded until later -- which becomes an issue
+# you can grab keyrings for ssh keys that have been authenticated with gpg-agent with gpg-connect-agent
+$ gpg-connect-agent
+$ KEYINFO --ssh-list # prints out key ring
 
-Compile Applescript to application:
-```
-osacompile -o ~/Desktop/dock-login.app dock.scpt
-```
+# running gpg-bootstrap will let you set the passphrases for these keys for the current gpg-agent daemon
+bootstrap-gpg
+~~~
 
-Example Plist File:
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-   <key>Label</key>
-   <string>com.user.loginscript</string>
-   <key>Program</key>
-   <string>$HOME/dotfiles/scripts/login.sh</string>
-   <key>RunAtLoad</key>
-   <true/>
-</dict>
-</plist>
-```
+## alias generator
+
+create namespaced aliases programmatically
+
+~~~ sh
+
+$ ls ~/dotfiles
+    README.md
+    bin/
+    git-template/
+    scripts/
+    src/
+    symlinks/
+
+$ alias_generator.sh ~/dotfiles "d"
+
+# you now have namespaced aliases available
+$ d-bin
+$ d-git-template
+$ d-src
+
+~~~
+
 
