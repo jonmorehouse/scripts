@@ -1,5 +1,8 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env zsh
 
+if [[ ! -d $HOME/.commits ]]; then
+    mkdir -p $HOME/.commits
+fi
 # this script should be called whenever a git commit happens
 # useful for tracking my statistics for all projects
 origin=$(git config --get remote.origin.url)
