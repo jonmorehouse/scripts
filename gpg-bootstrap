@@ -6,18 +6,30 @@ Reads keys from env and asks you to enter passphrase, so you don't have to worry
 import getpass
 import os
 
-for key in ["GPG_KEYGRIP", "SSH_KEYGRIP"]:
+# keys that we are entering
+keys = ["GPG_KEYGRIP", "SSH_KEYGRIP"]
+
+# check if master keyphrase file exists
+try:
+    with open(os.path.expandvars("$HOME/.passphrase"), "rU") as r:
+        passphrases = r.read().splitlines()
+except IOError:
+    passphrases = None
+
+for i,key in enumerate(keys):
     
     kg = os.getenv(key)
     if not kg:
         print "Please set %s in env" % key
         continue
-    
-    print "enter %s passphrase:" % key
-    pp = getpass.getpass()
+
+    # generate the passphrase, whether in the passphrase file or by getpass
+    try:
+        passphrase = passphrases[i]
+    except IndexError: 
+        print "enter %s passphrase:" % key
+        passphrase = getpass.getpass()
 
     # now unlock on gpg-agent
-    os.popen("gpg-preset-passphrase -c -P %s %s" % (pp, kg))
-
-
+    os.popen("gpg-preset-passphrase -c -P %s %s" % (passphrase, kg))
 
