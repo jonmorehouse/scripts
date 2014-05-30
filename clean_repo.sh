@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+git fetch
 # Update the index
 git update-index -q --ignore-submodules --refresh
 err=0
