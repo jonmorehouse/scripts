@@ -26,7 +26,7 @@ for i,key in enumerate(keys):
     # generate the passphrase, whether in the passphrase file or by getpass
     try:
         passphrase = passphrases[i]
-    except IndexError: 
+    except Exception as e: 
         print "enter %s passphrase:" % key
         passphrase = getpass.getpass()
 
