@@ -1,4 +1,4 @@
-#!env osascript
+#!/usr/bin/env osascript
 
 -- crreate a list of items to remove
 set dock_elements to {"Trash", "Finder"}
