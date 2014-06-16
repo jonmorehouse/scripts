@@ -12,4 +12,4 @@ def python_shell(command, **kw):
     stdout, stderr = output.communicate()
     return stderr, stdout
 
-print "%s%%" % psutil.cpu_percent(interval = 1)
+print "%s%%" % psutil.cpu_percent(interval = 0.25)
