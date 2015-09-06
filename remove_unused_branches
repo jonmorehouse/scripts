@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+if [[ ! -d .git ]]; then
+  echo "please run from a git directory"
+  exit 1
+fi
+
+branches=$(git for-each-ref --format='%(refname:short)' refs/heads/)
+remotes=$(git remote -v | grep fetch | awk '{ print $2 }')
+
+for branch in $branches; do
+  for remote in $remotes; do
+    echo $remote
+    if [[ !git ls-remote --heads $remote branch; then
+      echo "branch doesn't exist"
+    fi
+  done
+  #if $ git ls-remote --heads git@github.com:user/repo.git branch
+done
+
