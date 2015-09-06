@@ -10,11 +10,10 @@ remotes=$(git remote -v | grep fetch | awk '{ print $2 }')
 
 for branch in $branches; do
   for remote in $remotes; do
-    echo $remote
-    if [[ !git ls-remote --heads $remote branch; then
-      echo "branch doesn't exist"
+    if ! git ls-remote "$remote" "$branch"; then
+      echo -e "$branch not found on remote: $remote. Deleting local version"
+      git branch -D $branch
+      break
     fi
   done
-  #if $ git ls-remote --heads git@github.com:user/repo.git branch
 done
-
