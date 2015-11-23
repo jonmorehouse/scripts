@@ -1,19 +1,27 @@
 #!/usr/bin/env zsh
 
 if [[ ! -d .git ]]; then
-  echo "please run from a git directory"
+  echo -e "Please run this script from a git repository"
   exit 1
 fi
 
-branches=$(git for-each-ref --format='%(refname:short)' refs/heads/)
-remotes=$(git remote -v | grep fetch | awk '{ print $2 }')
+if [[ ! $(git rev-parse --abbrev-ref HEAD) = master ]]; then
+  echo -e "please run this script while on the master branch"
+  exit 1
+fi
 
-for branch in $branches; do
-  for remote in $remotes; do
-    if ! git ls-remote "$remote" "$branch"; then
-      echo -e "$branch not found on remote: $remote. Deleting local version"
+check_and_remove_branch() {
+  for remote in $(git remote -v | grep fetch | awk '{ print $2 }'); do
+    if ! git ls-remote --exit-code $remote $branch > /dev/null; then
+      echo -e "Deleting $brach. $branch not found on remote: $remote"
       git branch -D $branch
-      break
+    else
+      echo -e "$branch exists on remote. NOOP"
     fi
   done
+}
+
+for branch in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
+  check_and_remove_branch $branch &
 done
+wait
