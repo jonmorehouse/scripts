@@ -1,7 +1,14 @@
 #!/usr/local/bin/bash
+
+
+if [ ! -d "$1" ]; then
+  return
+fi
+
 alias_path="$1"
+
 if [ $# -gt 1 ]
-then 
+then
   # if _ or "" is passed in, then we want to just pass in a blank
   if [[ $2 == "_" || $2 == "" ]]
   then
@@ -9,12 +16,12 @@ then
   else
     alias_prefix="$2"
   fi
-else 
+else
   alias_prefix="$(echo $1 | awk '{ n=split($0,a,"/"); print tolower(a[n]) }')"
 fi
 
 # create parent alias -- unless flag is passed
-if [ ! $# -eq 3 ] 
+if [ ! $# -eq 3 ]
 then
   parent=$(echo $alias_prefix | sed 's/-//')
   eval alias ${parent}='${alias_path}'
